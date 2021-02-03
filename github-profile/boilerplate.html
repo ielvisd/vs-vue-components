@@ -10,6 +10,7 @@
     <div id="app" class="ui container">
       <h1>GitHub Profiles</h1>
       <github-user-card username="hootlex"></github-user-card>
+      <github-user-card username="ielvisd"></github-user-card>
 
 
     </div>
@@ -18,21 +19,21 @@
       <script type="text/x-template" id="github-user-card-template">
         <div class="ui card">
           <div class="image">
-            <img src="https://semantic-ui.com/images/avatar2/large/kristy.png" />
+            <img :src= profile.avatar_url />
           </div>
           <div class="content">
-            <a class="header">Kristy</a>
+            <a class="header">{{profile.name}}</a>
             <div class="meta">
-              <span class="date">Joined in 2013</span>
+              <span class="date">Joined: {{new Date(profile.created_at).toLocaleDateString("en-US")}}</span>
             </div>
             <div class="description">
-              Kristy is an art director living in New York.
+              {{profile.bio}}
             </div>
           </div>
           <div class="extra content">
             <a>
               <i class="user icon"></i>
-              22 Friends
+              {{profile.followers}}
             </a>
           </div>
         </div>
@@ -49,7 +50,13 @@
         props: ["username"],
         data() {
           return {
-            profile: null
+            profile: {
+                avatar_url: null, 
+                name: null, 
+                created_at: null, 
+                bio: null, 
+                followers: null, 
+            }
           };
         },
         created() {
